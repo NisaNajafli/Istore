@@ -64,3 +64,7 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal();
 });
 document.getElementById("year").textContent = new Date().getFullYear();
+const mainButton = document.getElementById("main-button");
+      mainButton.addEventListener("click", function () {
+        this.classList.toggle("open");
+      });
