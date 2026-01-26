@@ -2065,13 +2065,13 @@ header.scrolled{
 
 .footer-brand {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 10px;
   font-weight: 600;
 }
 
 .footer-brand img {
-  width: 18px;
+  width: 160px;
 }
 
 .footer-social a img {
