@@ -1762,7 +1762,8 @@ header.scrolled {
 .contact-info .col a {
   display: inline;
   margin-top: 4px;
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 400;
   color: var(--black);
   transition: 0.4s ease;
 }
