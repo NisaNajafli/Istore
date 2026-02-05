@@ -13,11 +13,9 @@
   font-style: normal;
   font-display: swap;
 }
-
 a {
   text-decoration: none;
 }
-
 * {
   font-family:
     "SF UI Display",
@@ -26,7 +24,6 @@ a {
     "Segoe UI",
     sans-serif !important;
 }
-
 :root {
   --grey: #999999;
   --black: #111111;
@@ -36,40 +33,140 @@ a {
   --white: #ffffff;
   --br: 26px;
 }
-
 .section-top {
   display: flex;
   gap: 20px;
   justify-content: space-between;
   margin-bottom: 30px;
 }
-
 .section-title {
   font-size: 36px;
   font-weight: 600;
   color: #fff;
 }
-
 a {
   text-decoration: none;
   color: inherit;
 }
-
 section {
   margin-bottom: 80px;
 }
-
 .container {
   max-width: 1400px;
   padding: 0 20px;
   margin: 0 auto;
 }
-
 body {
   background-color: #131217;
 }
+#menu_overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.501);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease;
+  z-index: 998;
+}
+#open_menu {
+  display: none;
+}
+#menu_overlay.is-active {
+  opacity: 1;
+  visibility: visible;
+}
 
-/* Fixed Icon */
+.mobile__menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  max-width: 85%;
+  height: 100vh;
+  background: #fff;
+  transform: translateX(100%);
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 999;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.mobile__menu.is-open {
+  transform: translateX(0);
+}
+
+#close_menu {
+  align-self: flex-end;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+#close_menu:hover {
+  opacity: 1;
+  transform: rotate(90deg);
+}
+
+.mobile__menu .nav-dropdown {
+  position: relative;
+}
+
+.mobile__menu .dropdown-menu-premium {
+  max-height: 0;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  padding: 0;
+  margin: 0;
+
+  opacity: 0;
+  transform: translateY(-6px);
+
+  transition:
+    max-height 0.35s ease,
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    padding 0.25s ease;
+
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.mobile__menu .nav-dropdown.active .dropdown-menu-premium {
+  max-height: 500px;
+  opacity: 1;
+  transform: translateY(0);
+
+  padding: 12px 0 0;
+}
+
+.mobile__menu .nav-dropdown > a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.mobile__menu .nav-dropdown svg {
+  width: 13px;
+  height: 13px;
+  transition: transform 0.25s ease;
+}
+
+.mobile__menu .nav-dropdown.active svg {
+  transform: rotate(180deg);
+}
+
 .wrapper {
   height: 100vh;
   background: #333;
@@ -81,15 +178,12 @@ body {
   bottom: 20px;
   z-index: 0;
 }
-
 #main-button .icon-close {
   display: none;
 }
-
 #main-button.open .icon-mail {
   display: none;
 }
-
 #main-button.open .icon-close {
   display: block;
 }
@@ -176,7 +270,6 @@ body {
   border-radius: 50%;
   transition: all 0.3s ease;
 }
-
 #main-button ~ .wrappericon img {
   height: 55px;
   width: 55px;
@@ -211,7 +304,6 @@ body {
   bottom: 290px;
   background: #2196f3;
 }
-
 .wave {
   animation-name: wave;
   animation-duration: 1s;
@@ -238,7 +330,6 @@ body {
 .open {
   animation-iteration-count: 1;
 }
-
 /* BURGER BUTTON */
 #open_menu {
   display: none;
@@ -268,7 +359,6 @@ body {
   transition: 0.3s;
   z-index: 999999;
 }
-
 .modal-form button {
   border: 1px solid #333;
   background-color: #333;
@@ -276,7 +366,6 @@ body {
   width: 100%;
   border-radius: 0 !important;
 }
-
 .custom-modal {
   position: fixed;
   top: 50%;
@@ -366,7 +455,6 @@ textarea {
   transition: 0.3s;
   overflow: hidden;
 }
-
 .modal-action:hover {
   background-color: #fff;
   border-color: var(--blue);
@@ -388,18 +476,15 @@ textarea {
 .modal-close:hover {
   color: var(--blue);
 }
-
 header {
   position: fixed;
   width: 100%;
   background-color: #fff;
   z-index: 100;
 }
-
 header.scrolled {
   box-shadow: 10px -6px 15px black;
 }
-
 .header-top {
   background: #1c1c1c;
   color: #fff;
@@ -476,26 +561,42 @@ header.scrolled {
   height: 32px;
   object-fit: contain;
 }
-
 .header-imgs img:first-child {
   height: 40px;
 }
-
 /* menu */
 .header-main nav {
   flex: 1;
   display: flex;
   justify-content: center;
 }
-
-.header-main ul {
-  list-style: none;
+.mobile__menu nav {
   display: flex;
-  align-items: center;
-  gap: 28px;
+  justify-content: flex-start;
+  margin-bottom: 20px;
 }
 
-.header-main li a {
+.header-main ul,
+.mobile__menu ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+}
+.mobile__menu ul {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: inherit !important;
+  gap: 20px;
+}
+.mobile__menu li a {
+  text-transform: uppercase;
+  font-weight: bold !important;
+  padding: 0 !important;
+  font-size: 16px !important;
+}
+.header-main li a,
+.mobile__menu li a {
   font-size: 15px;
   font-weight: 500;
   color: #111;
@@ -504,7 +605,8 @@ header.scrolled {
   transition: color 0.25s ease;
 }
 
-.header-main li a::after {
+.header-main li a::after,
+.mobile__menu li a::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -515,11 +617,13 @@ header.scrolled {
   transform: translateX(-50%);
 }
 
-.header-main li a:hover {
+.header-main li a:hover,
+.mobile__menu li a:hover {
   color: var(--blue);
 }
 
-.header-main li a:hover::after {
+.header-main li a:hover::after,
+.mobile__menu li a:hover::after {
   width: 100%;
   box-shadow: 0 0 6px rgba(0, 113, 227, 0.45);
 }
@@ -529,7 +633,6 @@ header.scrolled {
   gap: 10px;
   align-items: center;
 }
-
 .header-socials a {
   width: 38px;
   height: 38px;
@@ -552,13 +655,15 @@ header.scrolled {
   transform: scale(1.08);
   border-bottom-color: var(--blue);
 }
-
-/* wrapper */
-.nav-dropdown {
+.mobile__menu .header-socials a {
+  transform: scale(1.08);
+  border-bottom-color: var(--blue);
+  justify-content: center;
+}
+.header-main .nav-dropdown {
   position: relative;
 }
-
-.dropdown-menu-premium {
+.header-main .dropdown-menu-premium {
   position: absolute;
   top: calc(100% + 15px);
   left: 50%;
@@ -570,7 +675,6 @@ header.scrolled {
   box-shadow:
     0 30px 70px rgba(0, 0, 0, 0.12),
     0 10px 24px rgba(0, 0, 0, 0.06);
-
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -582,8 +686,7 @@ header.scrolled {
   gap: 10px;
   justify-content: space-between;
 }
-
-.nav-dropdown:hover .dropdown-menu-premium,
+.header-main .nav-dropdown:hover .dropdown-menu-premium,
 .dropdown-menu-premium:hover {
   opacity: 1;
   visibility: visible;
@@ -593,13 +696,11 @@ header.scrolled {
 .dropdown-menu-premium::before {
   content: "";
   position: absolute;
-  top: -15px;
-  /* top boşluğu qədər */
+  top: -15px; /* top boşluğu qədər */
   left: 0;
   width: 100%;
   height: 15px;
 }
-
 /* dropdown items */
 .dropdown-item {
   font-size: 18px;
@@ -632,7 +733,6 @@ header.scrolled {
 .dropdown-item:hover::before {
   height: 18px;
 }
-
 .apple-hero {
   background: var(--white);
   min-height: calc(100vh - var(--header-height));
@@ -712,11 +812,9 @@ header.scrolled {
   transition: 0.3s ease;
   width: 250px;
 }
-
 .swiper-pagination-bullets.swiper-pagination-horizontal {
   width: inherit !important;
 }
-
 .apple-btn:hover {
   background: var(--black);
   color: var(--white);
@@ -750,48 +848,6 @@ header.scrolled {
 
 .appleHeroSwiper .swiper-pagination-bullet-active {
   opacity: 1;
-}
-
-@media (max-width: 1200px) {
-  .apple-hero__inner {
-    gap: 60px;
-  }
-
-  .apple-hero__content h1 {
-    font-size: 48px;
-  }
-}
-
-@media (max-width: 992px) {
-  .apple-hero {
-    padding-top: var(--header-height);
-  }
-
-  .apple-hero__inner {
-    grid-template-columns: 1fr;
-    text-align: center;
-    min-height: auto;
-  }
-
-  .apple-hero__content {
-    align-items: center;
-  }
-
-  .apple-hero__content p {
-    max-width: 100%;
-  }
-
-  .apple-hero__image {
-    width: 100%;
-    height: 320px;
-    margin: 40px auto 0;
-  }
-}
-
-@media (max-width: 576px) {
-  .apple-hero__content h1 {
-    font-size: 36px;
-  }
 }
 
 .apple-hero__controls {
@@ -878,23 +934,6 @@ header.scrolled {
 .apple-hero__pagination .swiper-pagination-bullet-active {
   width: 28px;
   background: #ffffff;
-}
-
-@media (max-width: 768px) {
-  .apple-hero__controls {
-    bottom: 18px;
-    padding: 9px 14px;
-    gap: 14px;
-  }
-
-  .apple-hero__nav {
-    width: 40px;
-    height: 40px;
-  }
-
-  .apple-hero__pagination .swiper-pagination-bullet-active {
-    width: 22px;
-  }
 }
 
 #categories {
@@ -1034,18 +1073,6 @@ header.scrolled {
   transform: scale(1);
 }
 
-@media (max-width: 992px) {
-  .categories__grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 576px) {
-  .categories__grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 #about {
   background: #fff;
   padding: 60px 0 20px 0;
@@ -1124,33 +1151,6 @@ header.scrolled {
   color: rgba(255, 255, 255, 0.75);
   text-align: justify;
   color: #00000080;
-}
-
-/* RESPONSIVE */
-@media (max-width: 992px) {
-  .about-top__header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .about-top__title {
-    font-size: 44px;
-  }
-
-  .about-top__content {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-}
-
-@media (max-width: 576px) {
-  #about-top {
-    padding: 70px 0;
-  }
-
-  .about-top__title {
-    font-size: 36px;
-  }
 }
 
 .about-bottom {
@@ -1394,22 +1394,6 @@ header.scrolled {
 .about-media__agree input {
   margin-top: 2px;
   accent-color: var(--blue);
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-  .about-media__form {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .about-media__form button {
-    width: 100%;
-  }
-
-  .about-media__form > div {
-    width: 100%;
-  }
 }
 
 .blog__grid {
@@ -1688,23 +1672,6 @@ header.scrolled {
   color: #333;
 }
 
-/* responsive */
-@media (max-width: 768px) {
-  .onfooter__box {
-    min-height: 340px;
-  }
-
-  .onfooter__content {
-    max-width: 100%;
-    margin: 0 16px 16px;
-    padding: 24px;
-  }
-
-  .onfooter__title {
-    font-size: 24px;
-  }
-}
-
 .breadcrumb {
   padding-top: 140px;
   margin-bottom: 30px;
@@ -1810,22 +1777,6 @@ header.scrolled {
   font-size: 14px;
   line-height: 1.6;
   color: rgba(256, 256, 256, 0.7);
-}
-
-/* RESPONSIVE */
-@media (max-width: 992px) {
-  .contact-map-content {
-    grid-template-columns: 1fr;
-  }
-
-  .contact-info {
-    position: relative;
-    top: unset;
-  }
-
-  .contact-map .map {
-    height: 320px;
-  }
 }
 
 .about-hero {
@@ -2021,19 +1972,6 @@ header.scrolled {
   font-size: 14px;
   line-height: 1.5;
   color: #555;
-}
-
-/* Responsive */
-@media (max-width: 992px) {
-  .steps {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 560px) {
-  .steps {
-    grid-template-columns: 1fr;
-  }
 }
 
 .services-faq {
@@ -2737,97 +2675,285 @@ header.scrolled {
   font-weight: 600;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .specs-wrap {
-    grid-template-columns: 1fr;
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+  .product-grid {
+    grid-template-columns: 1fr 1fr 1fr;
   }
-
-  .specs-title {
-    margin-bottom: 20px;
+  .header-main ul {
+    gap: 0;
   }
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 992px) {
-  .product-3col {
-    grid-template-columns: 1fr;
+  .apple-hero__inner {
+    gap: 0;
   }
-
-  .product-col {
-    padding: 30px 0;
-    border-right: none !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  .product-col:last-child {
-    border-bottom: none;
-  }
-
-  .product-wrap-slider {
-    justify-content: center;
+  .apple-hero__content h1 {
+    font-size: 48px;
   }
 }
-
-/* ====== RESPONSIVE ====== */
 @media (max-width: 992px) {
-  .product-wrap {
-    grid-template-columns: 1fr;
+  .blog-inner__layout {
+    display: grid;
+    grid-template-columns: 1fr 240px;
     gap: 30px;
+    /* max-width: 1280px; */
+    margin: 0 auto;
   }
-
-  .product-thumbs-wrap {
-    flex-direction: row;
-    width: 100%;
-    justify-content: center;
+  .blog-inner__headline {
+    font-size: 32px;
   }
-
-  .product-thumbs {
-    height: 90px;
-    width: 100%;
+  .blog__grid.blog_page {
+    grid-template-columns: repeat(3, 1fr);
   }
-
-  .product-thumbs .swiper-slide {
-    width: 70px;
-  }
-
-  .thumbs-arrow {
-    transform: rotate(90deg);
-  }
-}
-
-/* Responsive */
-@media (max-width: 992px) {
-  .product-wrap {
+  .footer-top {
     grid-template-columns: 1fr;
   }
-  .product-thumbs {
-    order: 2;
+  footer {
+    padding-top: 0;
   }
-}
-/* Responsive */
-@media (max-width: 1024px) {
-  .footer .container {
-    width: 90%;
+  .blog__grid {
+    grid-template-columns: 1fr;
   }
 
-  .footer-top {
+  .about-bottom__grid {
+    display: grid;
+    grid-template-columns: 1.8fr 1.3fr 2fr;
+    gap: 10px;
+    align-items: start;
+  }
+  .about-media__wrap img {
+    object-fit: cover;
+  }
+  .product-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  #open_menu {
+    display: flex;
+  }
+  nav,
+  .header-socials a {
+    display: none !important;
+  }
+  .mobile__menu nav,
+  .mobile__menu .header-socials a {
+    display: flex !important;
+  }
+  .categories__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .steps {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  .footer-middle {
-    flex-direction: column;
-    gap: 20px;
+  .faq-grid {
+    grid-template-columns: 1fr;
+  }
+  .contact-map-content {
+    grid-template-columns: 1fr;
   }
 
-  .footer-bottom {
+  .contact-info {
+    position: relative;
+    top: unset;
+  }
+
+  .contact-map .map {
+    height: 320px;
+  }
+  .about-top__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .about-media__form {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .about-media__form > input {
+    width: 100%;
+  }
+  .about-media__form > div {
+    flex-direction: column-reverse;
+    width: 100%;
+  }
+
+  .about-media__ticker {
+    bottom: 208px;
+  }
+  .about-top__title {
+    font-size: 44px;
+  }
+  .about-service .container {
+    gap: 0;
+  }
+  .apple-service h5 {
+    font-size: 20px;
+    margin-bottom: 30px;
+  }
+  .about-top__content {
     grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .apple-hero__image {
+    width: 320px;
+  }
+  .apple-hero__inner {
+    gap: 10px;
+  }
+  .faq-item {
+    padding: 10px 20px;
+    align-self: flex-start;
+  }
+}
+@media (max-width: 768px) {
+  .blog-inner__layout{
+    grid-template-columns: 1fr;
+  }
+      .blog-inner__headline {
+        font-size: 26px;
+    }
+  .blog__grid.blog_page {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .about-hero-content {
+    margin-top: 39px;
+  }
+  .section-title {
+    font-size: 30px;
+    text-align: center;
+  }
+  .about-service .container {
+    grid-template-columns: 1fr;
+  }
+
+  .about-hero-content h4 {
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .footer-col.blogs div {
+    grid-template-columns: 1fr;
+  }
+  .wave {
+    animation: none !important;
+  }
+  .about-bottom__grid {
+    grid-template-columns: 1fr;
+  }
+  .footer-middle {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .footer_bottom {
+    gap: 20px;
+  }
+  .about-bottom__sticky {
+    position: inherit;
+  }
+  .blog-featured__title {
+    font-size: 25px;
+  }
+  .about-media__ticker {
+    bottom: 199px;
+  }
+  .section-top {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .blog-featured {
+    display: none;
+  }
+  #categories {
+    padding-top: 0;
+  }
+  .header-top #none {
+    display: none;
+  }
+  .apple-hero__inner {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0 10px;
+  }
+  .apple-hero {
+    padding-top: 150px;
+  }
+  .apple-hero__content h1 {
+    font-size: 27px !important;
+  }
+  .apple-hero__content {
+    align-items: center;
+  }
+  .header-top {
+    font-size: 12px;
+  }
+  .apple-hero__image {
+    width: 100%;
+    height: 300px;
+    margin-bottom: 60px;
+    margin-top: 10px;
+  }
+  .apple-hero__controls {
+    bottom: 18px;
+    padding: 9px 14px;
+    gap: 14px;
+  }
+
+  .apple-hero__nav {
+    width: 40px;
+    height: 40px;
+  }
+
+  .apple-hero__pagination .swiper-pagination-bullet-active {
+    width: 22px;
+  }
+
+  .about-media__form button {
+    width: 100%;
+  }
+
+  .about-media__form > div {
+    width: 100%;
+  }
+  .onfooter__box {
+    min-height: 340px;
+  }
+
+  .onfooter__content {
+    max-width: 100%;
+    margin: 0 16px 16px;
+    padding: 24px;
+  }
+
+  .onfooter__title {
+    font-size: 24px;
   }
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .faq-grid {
+@media (max-width: 576px) {
+  .categories__grid {
+    grid-template-columns: 1fr;
+  }
+  #about-top {
+    padding: 70px 0;
+  }
+  .steps {
+    grid-template-columns: 1fr;
+  }
+  .apple-hero__content h1 {
+    font-size: 36px;
+  }
+  .blog-sidebar {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .onfooter__actions {
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+  }
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+  .blog__grid.blog_page {
     grid-template-columns: 1fr;
   }
 }

@@ -68,6 +68,55 @@ const mainButton = document.getElementById("main-button");
 mainButton.addEventListener("click", function () {
   this.classList.toggle("open");
 });
+document.addEventListener("DOMContentLoaded", () => {
+  const openBtn = document.getElementById("open_menu");
+  const closeBtn = document.getElementById("close_menu");
+  const menu = document.querySelector(".mobile__menu");
+  const overlay = document.getElementById("menu_overlay");
+  const menuLinks = document.querySelectorAll(".mobile__menu a");
+
+  function openMenu() {
+    menu.classList.add("is-open");
+    overlay.classList.add("is-active");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeMenu() {
+    menu.classList.remove("is-open");
+    overlay.classList.remove("is-active");
+    document.body.style.overflow = "";
+  }
+
+  openBtn.addEventListener("click", openMenu);
+  closeBtn.addEventListener("click", closeMenu);
+  overlay.addEventListener("click", closeMenu);
+
+  menuLinks.forEach((link) => {
+    link.addEventListener("click", closeMenu);
+  });
+});
+document.addEventListener("DOMContentLoaded", function () {
+  const dropdownLinks = document.querySelectorAll(
+    ".mobile__menu .nav-dropdown > a",
+  );
+
+  dropdownLinks.forEach((link) => {
+    /* CAPTURE PHASE – ƏVVƏL TUTURUQ */
+    link.addEventListener(
+      "click",
+      function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+
+        const parent = this.closest(".nav-dropdown");
+        parent.classList.toggle("active");
+      },
+      true,
+    ); // 🔥 BURASI ƏSASDIR
+  });
+});
+
 const thumbsSwiper = new Swiper(".thumbsSwiper", {
   direction: "vertical",
   slidesPerView: 4,
@@ -75,15 +124,15 @@ const thumbsSwiper = new Swiper(".thumbsSwiper", {
   navigation: {
     nextEl: ".thumbs-next",
     prevEl: ".thumbs-prev",
-  }
+  },
 });
 
 // Thumb click
-document.querySelectorAll(".product-thumbs .swiper-slide").forEach(slide => {
-  slide.addEventListener("click", function(){
-
-    document.querySelectorAll(".product-thumbs .swiper-slide")
-      .forEach(s => s.classList.remove("is-active"));
+document.querySelectorAll(".product-thumbs .swiper-slide").forEach((slide) => {
+  slide.addEventListener("click", function () {
+    document
+      .querySelectorAll(".product-thumbs .swiper-slide")
+      .forEach((s) => s.classList.remove("is-active"));
     this.classList.add("is-active");
 
     const img = this.querySelector("img");
